@@ -29,10 +29,10 @@ Then you need a message.
 
 ```
 Message {
-	Subject        : "meeting tonight", // required 
-	Content        : someText,          // required
-	From           : string,            // defaults to the UserName above
-	HideRecipients : false,             // default false
+	Subject        : "meeting tonight",  // required 
+	Content        : someText,           // required
+	From           : "jcg678@gmail.com", // defaults to the UserName above
+	HideRecipients : false,              // default false
 }
 ```
 
