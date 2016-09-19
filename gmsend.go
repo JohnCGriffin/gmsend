@@ -33,8 +33,8 @@ func defaultEmailUser() (*SMTPAuthentication, error) {
 
 	prioritizedLocations := []string{
 		os.Getenv("GMAIL_USER_AUTHENTICATION"),
-		fmt.Sprintf("%s/.gmail_user_authentication.json", os.Getenv("HOME")),
-		"/opt/etc/gmail_user_authentication.json"}
+		fmt.Sprintf("%s/.gmsend.json", os.Getenv("HOME")),
+		"/opt/etc/gmsend.json"}
 
 	for _, location := range prioritizedLocations {
 
@@ -105,8 +105,6 @@ func Send(emailUser *SMTPAuthentication, message Message, recipients []string) e
 		ToHeader,
 		SubjectHeader,
 		message.Content)
-
-	fmt.Printf("%s\n", text)
 
 	serverPort := fmt.Sprintf("%s:%d",
 		emailUser.EmailServer,
