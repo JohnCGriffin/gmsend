@@ -6,9 +6,9 @@ JSON configuration.
 The simplest usage assumes the use a nil to imply a default *UserEmail, 
 the content of which comes from a JSON file located in one of:
 
-	1) a file specified in the environment variable GMAIL_USER_AUTHENTICATION
-	2) $HOME/.gmail_user_authentication.json
-	3) /opt/etc/gmail_user_authentication.json
+	1) a file specified in the environment variable GMSEND
+	2) $HOME/.gmsend.json
+	3) /opt/etc/gmsend.json
 	
 Whether using the default nil pointer to fetch from JSON, or supplied explicity, 
 the UserMail will end up like:

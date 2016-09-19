@@ -32,7 +32,7 @@ func defaultEmailUser() (*SMTPAuthentication, error) {
 	var result SMTPAuthentication
 
 	prioritizedLocations := []string{
-		os.Getenv("GMAIL_USER_AUTHENTICATION"),
+		os.Getenv("GMSEND"),
 		fmt.Sprintf("%s/.gmsend.json", os.Getenv("HOME")),
 		"/opt/etc/gmsend.json"}
 
