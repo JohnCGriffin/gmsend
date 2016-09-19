@@ -97,7 +97,7 @@ func Send(emailUser *SMTPAuthentication, message Message, recipients []string) e
 
 	var ToHeader string
 	if !message.HideRecipients {
-		ToHeader = "To: " + strings.Join(recipients, ",") + "\n"
+		ToHeader = fmt.Sprintf("To: %s\n", strings.Join(recipients, ","))
 	}
 
 	text := fmt.Sprintf("%s%s%s\n%s\n",
