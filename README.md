@@ -1,4 +1,4 @@
-# gmail-send 
+# gmsend
 
 Go library for sending emails through a gmail account.  Support is included for a default
 JSON configuration.
