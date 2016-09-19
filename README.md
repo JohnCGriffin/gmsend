@@ -1,7 +1,11 @@
 # gmsend
 
 Go library for sending emails through a gmail account.  Support is included for a default
-JSON configuration.
+JSON configuration.  If you want to utilize it:
+
+```
+go get -u github.com/JohnCGriffin/gmsend
+```
 
 The simplest usage assumes the use a nil to imply a default *UserEmail, 
 the content of which comes from a JSON file located in one of:
@@ -14,10 +18,11 @@ Whether using the default nil pointer to fetch from JSON, or supplied explicity,
 the UserMail will end up like:
 
 ```
-SMTPAuthentication { 	UserName    : "pierre@gmail.com", 
-						Password    : "7nuit,pas3,stp",
-						EmailServer : "smtp.gmail.com"
-						Port        : 587 }
+SMTPAuthentication { 	
+	UserName    : "pierre@gmail.com", 
+	Password    : "7nuit,pas3,stp",
+	EmailServer : "smtp.gmail.com"
+	Port        : 587 }
 ```
 
 Then you need a message.
