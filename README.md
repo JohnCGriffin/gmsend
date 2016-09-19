@@ -14,10 +14,10 @@ Whether using the default nil pointer to fetch from JSON, or supplied explicity,
 the UserMail will end up like:
 
 ```
-UserEmail { UserName : "pierre@gmail.com", 
-			Password : "7nuit,pas3,stp",
-			EmailServer : "smtp.gmail.com"
-			Port : 587 }
+SMTPAuthentication { 	UserName    : "pierre@gmail.com", 
+						Password    : "7nuit,pas3,stp",
+						EmailServer : "smtp.gmail.com"
+						Port        : 587 }
 ```
 
 Then you need a message.

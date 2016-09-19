@@ -11,13 +11,15 @@ import (
 
 //https://nathanleclaire.com/blog/2013/12/17/sending-email-from-gmail-using-golang/
 
-type EmailUser struct {
-	Username    string `json:"username"`
-	Password    string `json:"password"`
-	EmailServer string `json:"emailserver"`
-	Port        int    `json:"port"`
+// SMTPAuthentication contains gmail identification, server and port
+type SMTPAuthentication struct {
+	Username    string `json:"username"`    // e.g. "ralphmalph@gmail.com"
+	Password    string `json:"password"`    // e.g. "mypassword1234!"
+	EmailServer string `json:"emailserver"` // e.g. "smtp.gmail.com"
+	Port        int    `json:"port"`        // e.g. 587
 }
 
+// Message contains content and subject
 type Message struct {
 	HideRecipients bool
 	From           string
@@ -25,9 +27,9 @@ type Message struct {
 	Content        string
 }
 
-func defaultEmailUser() (*EmailUser, error) {
+func defaultEmailUser() (*SMTPAuthentication, error) {
 
-	var result EmailUser
+	var result SMTPAuthentication
 
 	prioritizedLocations := []string{
 		os.Getenv("GMAIL_USER_AUTHENTICATION"),
@@ -57,7 +59,9 @@ func defaultEmailUser() (*EmailUser, error) {
 	return nil, fmt.Errorf("no default settings available")
 }
 
-func Send(emailUser *EmailUser, message Message, recipients []string) error {
+// Send takes a *SMTPAuthentication (which is usually nil), a message
+// and recipients.
+func Send(emailUser *SMTPAuthentication, message Message, recipients []string) error {
 
 	if emailUser == nil {
 		defaulted, err := defaultEmailUser()
