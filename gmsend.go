@@ -56,7 +56,7 @@ func defaultEmailUser() (*SMTPAuthentication, error) {
 		return &result, nil
 	}
 
-	return nil, fmt.Errorf("no default settings available")
+	return nil, fmt.Errorf("no default settings found in [$GMSEND,~/.gmsend.json,/opt/etc/gmsend.json")
 }
 
 // Send takes a *SMTPAuthentication (which is usually nil), a message
