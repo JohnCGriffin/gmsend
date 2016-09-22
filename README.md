@@ -40,7 +40,7 @@ Finally supply recipients and hopefully the error return is nil.
 
 ```
 recipients := []string{ "i812@gmail.com","ralph@malph.com"}
-err := gmail_send.Send(nil, theMessage, recipients)
+err := gmsend.Send(nil, theMessage, recipients)
 ```
 
 
