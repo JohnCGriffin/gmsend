@@ -17,6 +17,7 @@ type SMTPAuthentication struct {
 	Password    string `json:"password"`    // e.g. "mypassword1234!"
 	EmailServer string `json:"emailserver"` // e.g. "smtp.gmail.com"
 	Port        int    `json:"port"`        // e.g. 587
+	ReplyTo     string `json:"replyto"`     // e.g. "Fido the dog<dog@woofwoof.bone>"
 }
 
 // Message contains content and subject
@@ -25,6 +26,7 @@ type Message struct {
 	From           string
 	Subject        string
 	Content        string
+	ReplyTo        string
 }
 
 func defaultEmailUser() (*SMTPAuthentication, error) {
@@ -83,6 +85,16 @@ func Send(emailUser *SMTPAuthentication, message Message, recipients []string) e
 		return fmt.Errorf("no subject supplied")
 	}
 
+	replyTo := message.ReplyTo
+	if replyTo == "" {
+		replyTo = emailUser.ReplyTo
+	}
+
+	var replyToHeader string
+	if replyTo != "" {
+		replyToHeader = fmt.Sprintf("Reply-To: %s\n", replyTo)
+	}
+
 	auth := smtp.PlainAuth("",
 		emailUser.Username,
 		emailUser.Password,
@@ -92,18 +104,19 @@ func Send(emailUser *SMTPAuthentication, message Message, recipients []string) e
 		message.From = emailUser.Username
 	}
 
-	FromHeader := fmt.Sprintf("From: %s\n", message.From)
-	SubjectHeader := fmt.Sprintf("Subject: %s\n", message.Subject)
+	fromHeader := fmt.Sprintf("From: %s\n", message.From)
+	subjectHeader := fmt.Sprintf("Subject: %s\n", message.Subject)
 
-	var ToHeader string
+	var toHeader string
 	if !message.HideRecipients {
-		ToHeader = fmt.Sprintf("To: %s\n", strings.Join(recipients, ","))
+		toHeader = fmt.Sprintf("To: %s\n", strings.Join(recipients, ","))
 	}
 
-	text := fmt.Sprintf("%s%s%s\n%s\n",
-		FromHeader,
-		ToHeader,
-		SubjectHeader,
+	text := fmt.Sprintf("%s%s%s%s\n%s\n",
+		fromHeader,
+		toHeader,
+		subjectHeader,
+		replyToHeader,
 		message.Content)
 
 	serverPort := fmt.Sprintf("%s:%d",
